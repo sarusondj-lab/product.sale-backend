@@ -18,6 +18,9 @@ async function getAutoTranslations(text) {
 export const getProducts = async (req, res) => {
   try {
     const products = await Product.find().sort({ createdAt: -1 });
+    if(!products){
+      res.status(404).json({ message: "product is empty" });
+    }
     res.json(products);
   } catch (err) {
     res.status(500).json({ message: "Error fetching products" });
